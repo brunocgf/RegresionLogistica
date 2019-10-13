@@ -16,3 +16,5 @@ def datos(modo='entrena'):
   train_idx, test_idx = idx[:69], idx[69:]
   idx = train_idx if modo == 'entrena' else test_idx
   return X[idx,:], y[idx]
+
+
