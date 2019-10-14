@@ -1,23 +1,24 @@
 from sklearn import preprocessing
 from sklearn.linear_model import LogisticRegression
-import datos
+import numpy as np
 
-X,y = datos()
-X_test, y_test = datos(modo='prueba')
 
-X[:,0] = 1
+X_entrena, y_entrena = datos()
+X_prueba, y_prueba = datos(modo='prueba')
 
-Xsta = preprocessing.scale(X)
+#X[:,0] = 1
+
 scaler = preprocessing.MinMaxScaler()
-Xst = scaler.fit_transform(X)
-Xst_test = scaler.transform(X_test)
+
+Xst_entrena = scaler.fit_transform(X_entrena)
+Xst_prueba = scaler.transform(X_prueba)
 
 
-beta, i = grad_desc_armijo(Xst,y)
+betahat_armijo, i = grad_desc_armijo(Xst_entrena,y_entrena)
 
-y_est = sigm(Xst_test@beta)
-y_est = sigm(Xst_test@beta0[0,:])
+yhat = pred(Xst_prueba, betahat_armijo)
 
+np.mean(yhat-y_prueba)
 
-lr = LogisticRegression()
-lr.fit(Xst,y)
+#lr = LogisticRegression()
+#lr.fit(Xst,y)

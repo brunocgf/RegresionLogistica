@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy
+import numpy as np
 
 def datos(modo='entrena'):
   gid = 'd932a3cf4d6bdeef36a7230fff959301'
@@ -12,9 +12,8 @@ def datos(modo='entrena'):
   df.loc[df[var] == 'B', [var]] = 0
   X_cols = [c for c in df.columns if not c is var]
   X, y = df[X_cols].to_numpy(), df[var].to_numpy()
-  idx = numpy.random.permutation(X.shape[0])
+  idx = np.random.permutation(X.shape[0])
   train_idx, test_idx = idx[:69], idx[69:]
   idx = train_idx if modo == 'entrena' else test_idx
   return X[idx,:], y[idx]
-
 
